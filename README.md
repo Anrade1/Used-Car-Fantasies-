@@ -1,19 +1,40 @@
 # Used-Car-Fantasies-
 A concise ML project analyzing a 426K-row used car dataset through cleaning, feature engineering, EDA, and Ridge regression to identify what drives used car prices.
-Business Understanding:
-The goal of this project is to understand what drives used car prices so dealers can price and stock inventory more effectively. From a data perspective, the task involves building a supervised regression model that predicts price from vehicle attributes such as age, mileage, manufacturer, type, drivetrain, fuel type, and condition, and then analyzing which features have the strongest influence on price.
+Business Understanding 
+The business goal is to understand what drives used car prices so dealers can price and stock inventory more effectively.
+As a data task, this becomes building a supervised regression model that predicts price from vehicle attributes (age, mileage, manufacturer, type, drivetrain, fuel, condition, etc.) and using model outputs to quantify which features most strongly influence price.
 
-Data Understanding:
-I explored the dataset by reviewing its structure and datatypes, checking missing values across all fields, examining the distributions of key variables like price, year, odometer, and engineered age, and identifying extreme outliers such as multi-million-dollar prices and cars with 10-million-mile odometer readings.
+Data Understanding 
+To assess our dataset, I:
+•    Inspected structure and types (df.info(), df.describe()).
+•    Checked missingness across fields and identified highly incomplete columns.
+•    Examined distributions for price, year, odometer, and engineered age.
+•    Detected major outliers (multi-million prices, 10M-mile odometers).
 
-Data Preparation:
-The dataset was cleaned and prepared by removing extreme outliers in price and odometer, restricting the dataset to modern vehicles (year 1994 or newer, age 30 years or less), engineering age as a primary predictor, dropping features with heavy missingness or little predictive value (such as size and paint color), filling numeric missing values with medians and categorical missing values with the label “missing,” and encoding categorical variables with sparse one-hot encoding through a ColumnTransformer. This produced a clean and efficient dataset for modeling.
+Data Preparation 
+I prepared the dataset by:
+•    Removing extreme outliers in price and odometer.
+•    Restricting to modern vehicles (year ≥ 1994, age ≤ 30).
+•    Engineering age as a clearer predictor than year.
+•    Dropping low-value or high-missing features (e.g., size, paint_color).
+•    Filling missing numeric values with medians and categorical values with "missing".
+•    Encoding categoricals with sparse one-hot encoding using a ColumnTransformer.
+This produced a clean, memory-efficient dataset suitable for regression modeling.
 
-Modeling:
-The cleaned dataset was split into training and testing subsets, and several regression models were trained, including basic Linear Regression and Ridge Regression with L2 regularization. Using sparse one-hot encoding for categoricals and numeric passthrough for continuous features, the Ridge model achieved the best results with an RMSE of approximately $11,700 and an R² of about 0.20.
+Modeling 
+I split the data into training and testing sets and trained several regression models, including baseline Linear Regression and Ridge Regression with L2 regularization.
+Using sparse one-hot encoding and numeric passthrough, we tuned Ridge and evaluated models with RMSE and R².
+The best model achieved RMSE ≈ $11.7k and R² ≈ 0.20.
 
-Evaluation:
-Even though the dataset is noisy and lacks detailed trim or condition-level features, the model successfully identifies major factors that influence used car prices. An R² around 0.20 is typical for publicly scraped used-car datasets. The model shows clear trends: newer vehicles, lower mileage, stronger manufacturers, SUVs and trucks, automatic transmissions, and clean titles are associated with higher prices. The model is reliable for insights, though not precise enough for exact price prediction.
+Evaluation 
+Although the dataset is noisy and lacks detailed condition/trim data, the model meaningfully captures major price drivers.
+An R² of ~0.20 is consistent with expectations for open used-car listings.
+The model reveals clear patterns: newer cars, lower mileage, strong manufacturers, SUVs/trucks, automatic transmission, and clean titles all increase predicted price.
+The model is sufficiently accurate to provide insight, though not to set precise prices.
 
-Deployment:
-The final findings for dealership users highlight that age, mileage, vehicle type, brand, drive type, and title or condition status are the main drivers of price. Dealers should focus on acquiring newer, lower-mileage SUVs and trucks from high-retention brands. The model can be used as a pricing reference tool and as support for inventory strategy decisions.
+Deployment 
+For dealership use, I summarized the key findings:
+•    Price is primarily driven by age, mileage, vehicle type, brand, drive type, and condition/title status.
+•    Dealers should prioritize newer, lower-mileage, SUV/truck inventory from high-retention brands.
+•    The model can serve as a pricing reference and help guide inventory strategy.
+
